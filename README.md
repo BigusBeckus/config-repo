@@ -16,13 +16,16 @@
   dconf dump /com/gexperts/Tilix/ > tilix.dconf
   ```
 - Load config from file (example):
+
   ```sh
   dconf load /com/gexperts/Tilix/ < tilix.dconf
   ```
-- Screenshot
-  ![Dump and load commands screenshot](tilix/images/screenshot.png)
 
-  > Note: Background images may be missing
+- Screenshot (Click for sauce)
+
+  [![Dump and load commands screenshot](tilix/images/screenshot.png)](https://github.com/gnunn1/tilix/issues/571)
+
+  > Note: Custom background images may be missing
 
 ## ZSH + Oh My ZSH
 
@@ -37,6 +40,7 @@
 - Use theme `minibash`
 
   ```sh
+  # Add this line to ~/.zshrc
   ZSH_THEME="minibash"
   ```
 
