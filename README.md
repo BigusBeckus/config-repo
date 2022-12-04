@@ -58,6 +58,10 @@
 
   **Example:** A file called `2022-10-10.json` in the `keybindings` directory would be imported as `keybindings.json` into the `~/.config/Code/User/` directory
 
+## Neovim
+- `/nvim` directory
+- Default config location: `~/.config/nvim`
+
 ## Miscellaneous
 
 - `/misc` directory
