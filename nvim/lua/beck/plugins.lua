@@ -20,11 +20,11 @@ return require('packer').startup(function(use)
   use { 'saadparwaiz1/cmp_luasnip' }
 
   -- nvim-cmp configuration
-  local cmp = require'cmp'
+  local cmp = require 'cmp'
   cmp.setup {
     snippet = {
       expand = function(args)
-        require'luasnip'.lsp_expand(args.body)
+        require 'luasnip'.lsp_expand(args.body)
       end
     },
     mapping = cmp.mapping.preset.insert({
@@ -46,7 +46,8 @@ return require('packer').startup(function(use)
   -- Poimandres theme
   use {
     --   'olivercederborg/poimandres.nvim',
-    '~/Documents/Personal/nvim/poimandres.nvim',
+    -- '~/Documents/Personal/nvim/poimandres.nvim',
+    'BigusBeckus/poimandres.nvim',
     config = function()
       require('poimandres').setup {
         -- leave this setup function empty for default config
@@ -96,7 +97,7 @@ return require('packer').startup(function(use)
   -- Telescope (Fuzzy finder)
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
   -- Gitsigns
@@ -122,7 +123,7 @@ return require('packer').startup(function(use)
   })
 
   -- Markdown preview
-  use ({
+  use({
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end,
   })
@@ -137,4 +138,3 @@ return require('packer').startup(function(use)
   }
 
 end)
-
