@@ -1,3 +1,7 @@
+# Quality of life
+alias mkd='f(){ mkdir "$1" && cd "$1" }; f'
+alias vimbegood="docker run -it --rm brandoncc/vim-be-good:latest"
+
 # Kubernetes
 alias kubectl="minikube kubectl --"
 
@@ -10,6 +14,8 @@ alias deit="docker exec -it"
 # Shortcuts
 alias c="code"
 alias c.="code ."
+alias n='nvim'
+alias n.="nvim ."
 
 # Git but weird
 alias git-clear-permission-changes="git diff -p -R --no-ext-diff --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply"
@@ -24,6 +30,7 @@ alias nxd="npx run dev"
 alias pi="pnpm install"
 alias pid="pnpm install -D"
 alias pd="pnpm run dev"
+alias pnpr="pnpm run"
 
 # yarn
 alias ya="yarn add"
