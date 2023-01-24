@@ -25,4 +25,4 @@ else
 	echo "Oh-My-Zsh config directory not found."
 fi
 
-dconf dump /com/gexperts/Tilix/ >tilix/tilix.dconf && echo "Tilix config copied"
+dconf dump /com/gexperts/Tilix/ >tilix/tilix.dconf && echo "Tilix config files copied"

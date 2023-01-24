@@ -32,5 +32,6 @@ vim.keymap.set("n", "<leader>f", function()
 	})
 end)
 
--- Netrw rebind (vim-vinegar is better)
+-- Unbound netrw rebind because vim-vinegar is better
+-- Netrw rebind
 -- vim.keymap.set("n", "<leader>pe", vim.cmd.Ex)
