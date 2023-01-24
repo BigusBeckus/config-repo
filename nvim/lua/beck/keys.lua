@@ -2,6 +2,36 @@
 -- local function t(str)
 --   return vim.api.nvim_replace_termcodes(str, true, true, true)
 -- end
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-vim.keymap.set('', '<C-p>', require'telescope.builtin'.find_files, { noremap = true })
+-- "greatest remap ever" - ThePrimeagen
+vim.keymap.set("x", "<leader>p", '"_dP') -- Replace without replacing buffer contents
 
+-- "next greatest remap ever : asbjornHaland" - ThePrimeagen
+-- Yank to system clipboard
+vim.keymap.set("n", "<leader>y", '"+y"')
+vim.keymap.set("v", "<leader>y", '"+y"')
+vim.keymap.set("n", "<leader>Y", '"+Y"')
+
+-- Delete without replacing buffer contents
+vim.keymap.set("n", "<leader>d", '"_d"')
+vim.keymap.set("v", "<leader>d", '"_d"')
+
+-- Formatter
+vim.keymap.set("n", "<leader>f", function()
+	vim.lsp.buf.format({
+		options = {
+			formatting_options = {
+				-- trimTrailingWhitespace = true,
+				-- trimFinalNewLines = true,
+				insertFinalNewLine = true,
+			},
+		},
+		async = true,
+	})
+end)
+
+-- Unbound netrw rebind because vim-vinegar is better
+-- Netrw rebind
+-- vim.keymap.set("n", "<leader>pe", vim.cmd.Ex)
