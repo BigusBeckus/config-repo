@@ -6,6 +6,9 @@ vim.keymap.set("n", "<C-p>", function()
 		file_ignore_patterns = {
 			"node%_modules/.*",
 			".git/.*",
+			"dist/.*",
+			".next/.*",
+			".nuxt/.*",
 		},
 	})
 end, { noremap = true })

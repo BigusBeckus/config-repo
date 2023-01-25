@@ -1,5 +1,10 @@
 local lsp = require("lsp-zero")
--- local mason = require("mason")
+local mason_registry = require("mason-registry")
+
+local prefered_prettier = "prettierd"
+-- local prefered_prettier = "prettier"
+local prefered_eslint = "eslint_d"
+-- local prefered_eslint = "eslint"
 
 lsp.set_preferences({
 	suggest_lsp_servers = true,
@@ -34,41 +39,41 @@ lsp.nvim_workspace({
 
 lsp.ensure_installed({
 	"astro",
+	"bashls",
 	"cssls",
 	"denols",
 	"dockerls",
-	-- "eslint",
-	--_ "eslint_d",
 	"gopls",
+	"gradle_ls",
 	"graphql",
 	"html",
-	-- "prettierd",
+	"jsonls",
+	"kotlin_language_server",
+	"prismals",
 	"rust_analyzer",
 	"sumneko_lua",
+	"sqls",
 	"svelte",
+	"tailwindcss",
+	"tsserver",
 	"vimls",
 	"volar",
-	"tsserver",
+	"yamlls",
 })
 
--- vim.api.nvim_command([[MasonInstall eslint_d]])
--- vim.api.nvim_command([[MasonInstall prettierd]])
+-- Ensure eslint and prettier are installed
+if not mason_registry.is_installed(prefered_eslint) then
+	mason_registry.get_package(prefered_eslint):install({ version = "latest" })
+end
+if not mason_registry.is_installed(prefered_prettier) then
+	mason_registry.get_package(prefered_prettier):install({ version = "latest" })
+end
 
 -- Custom LSP configs
 local root_pattern = require("lspconfig").util.root_pattern
 
--- lsp.use({ "eslint_d" }, {
--- 	root_dir = root_pattern(
--- 		".eslintrc",
--- 		".eslintrc.js",
--- 		".eslintrc.json",
--- 		".eslintrc.cjs",
--- 		".eslintrc.yml",
--- 		".eslintrc.yaml"
--- 	),
--- })
-
-lsp.use({ "eslint" }, {
+-- Setup eslint root pattern
+lsp.use({ prefered_eslint }, {
 	root_dir = root_pattern(
 		".eslintrc",
 		".eslintrc.js",
@@ -79,6 +84,7 @@ lsp.use({ "eslint" }, {
 	),
 })
 
+-- Setup jsonls with common schemas
 lsp.configure("jsonls", {
 	filetypes = { "sqq", "json", "jsonc" },
 	settings = {
@@ -136,28 +142,33 @@ lsp.configure("denols", {
 })
 
 -- Setup lua language server
--- lsp.configure("sumneko_lua", {
--- 	settings = {
--- 		Lua = {
--- 			runtime = {
--- 				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
--- 				version = "LuaJIT",
--- 			},
--- 			diagnostics = {
--- 				-- Get the language server to recognize the `vim` global
--- 				globals = { "vim" },
--- 			},
--- 			workspace = {
--- 				-- Make the server aware of Neovim runtime files
--- 				library = vim.api.nvim_get_runtime_file("", true),
--- 			},
--- 			-- Do not send telemetry data containing a randomized but unique identifier
--- 			telemetry = {
--- 				enable = false,
--- 			},
--- 		},
--- 	},
--- })
+lsp.configure("sumneko_lua", {
+	settings = {
+		Lua = {
+			runtime = {
+				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+				version = "LuaJIT",
+			},
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = { "vim" },
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			-- Do not send telemetry data containing a randomized but unique identifier
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
+})
+
+-- Setup tailwind language server root pattern
+lsp.configure("tailwindcss", {
+	root_dir = root_pattern("tailwind.config.*"),
+})
 
 -- nvim-cmp configuration
 local cmp = require("cmp")

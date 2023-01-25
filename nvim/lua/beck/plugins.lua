@@ -47,20 +47,20 @@ return require("packer").startup(function(use)
 	})
 
 	-- Poimandres theme
-	use({
-		--   'olivercederborg/poimandres.nvim',
-		"~/Documents/Personal/nvim/poimandres.nvim",
-		-- "BigusBeckus/poimandres.nvim",
-		config = function()
-			require("poimandres").setup({
-				-- leave this setup function empty for default config
-				-- or refer to the configuration section
-				-- for configuration options
-				dark_variant = true,
-				disable_italics = false,
-			})
-		end,
-	})
+	-- use({
+	-- 	--   'olivercederborg/poimandres.nvim',
+	-- 	"~/Documents/Personal/nvim/poimandres.nvim",
+	-- 	-- "BigusBeckus/poimandres.nvim",
+	-- 	config = function()
+	-- 		require("poimandres").setup({
+	-- 			-- leave this setup function empty for default config
+	-- 			-- or refer to the configuration section
+	-- 			-- for configuration options
+	-- 			dark_variant = true,
+	-- 			disable_italics = false,
+	-- 		})
+	-- 	end,
+	-- })
 
 	-- Lualine
 	use({
