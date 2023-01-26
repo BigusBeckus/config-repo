@@ -100,6 +100,10 @@ lsp.configure("jsonls", {
 					url = "https://json.schemastore.org/tsconfig.json",
 				},
 				{
+					fileMatch = { "jsconfig.json", "jsconfig.*.json" },
+					url = "https://json.schemastore.org/jsconfig.json",
+				},
+				{
 					fileMatch = {
 						".prettierrc",
 						".prettierrc.json",

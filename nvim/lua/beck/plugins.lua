@@ -122,6 +122,19 @@ return require("packer").startup(function(use)
 		tag = "0.1.0",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	require("telescope").setup({
+		defaults = {
+			file_ignore_patterns = {
+				"node%_modules/.*",
+				".git/.*",
+				"^dist/.*",
+				"^.next/.*",
+				"^.nuxt/.*",
+			},
+		},
+	})
+	require("telescope").load_extension("fzf")
 
 	-- Fugitive
 	use({ "tpope/vim-fugitive" })
@@ -157,4 +170,12 @@ return require("packer").startup(function(use)
 
 	-- Cellular automaton (this just looks fun as hell)
 	use("eandrju/cellular-automaton.nvim")
+
+	-- Autopairs
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup({})
+		end,
+	})
 end)
