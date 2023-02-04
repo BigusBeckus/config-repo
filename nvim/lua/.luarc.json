@@ -24,6 +24,12 @@
         "/home/orbit/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
         "/snap/nvim/2775/usr/share/nvim/runtime",
         "/home/orbit/.local/share/nvim/site/pack/packer/start/cmp_luasnip/after",
+        "${3rd}/luassert/library",
+        "${3rd}/luassert/library",
+        "${3rd}/luassert/library",
+        "${3rd}/luassert/library",
+        "${3rd}/luassert/library",
+        "${3rd}/luassert/library",
         "${3rd}/luassert/library"
     ]
 }

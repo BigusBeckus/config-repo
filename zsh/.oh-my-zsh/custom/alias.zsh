@@ -1,6 +1,11 @@
 # Quality of life
 alias mkd='f(){ mkdir "$1" && cd "$1" }; f'
-alias vimbegood="docker run -it --rm brandoncc/vim-be-good:latest"
+
+alias sd='cd "$((fd . --type d | fzf) | sed "s/^$/""/")"'
+alias sdh='cd "$((fd . --full-path ~ --type d | fzf) | sed "s/^$/""/")"'
+alias sf='xdg-open "$((fd . --type f | fzf) | sed "s/^$/""/")" &> /dev/null'
+alias sfh='xdg-open "$((fd . --full-path ~ --type f | fzf) | sed "s/^$/""/")" &> /dev/null'
+# alias sdt='cd "$((fd . --type d | fzf) | sed "s/^$/""/")"'
 
 # Kubernetes
 alias kubectl="minikube kubectl --"
@@ -14,8 +19,10 @@ alias deit="docker exec -it"
 # Shortcuts
 alias c="code"
 alias c.="code ."
-alias n='nvim'
+alias n="nvim"
 alias n.="nvim ."
+alias vim="nvim"
+alias vimbegood="docker run -it --rm brandoncc/vim-be-good:latest"
 
 # Git but weird
 alias git-clear-permission-changes="git diff -p -R --no-ext-diff --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply"

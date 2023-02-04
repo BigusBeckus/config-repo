@@ -122,19 +122,24 @@ return require("packer").startup(function(use)
 		tag = "0.1.0",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-	require("telescope").setup({
-		defaults = {
-			file_ignore_patterns = {
-				"node%_modules/.*",
-				".git/.*",
-				"^dist/.*",
-				"^.next/.*",
-				"^.nuxt/.*",
-			},
-		},
+	use({
+		"nvim-telescope/telescope-fzf-native.nvim",
+		run = "make",
+		config = function()
+			require("telescope").setup({
+				defaults = {
+					file_ignore_patterns = {
+						"node%_modules/.*",
+						".git/.*",
+						"^dist/.*",
+						"^.next/.*",
+						"^.nuxt/.*",
+					},
+				},
+			})
+			require("telescope").load_extension("fzf")
+		end,
 	})
-	require("telescope").load_extension("fzf")
 
 	-- Fugitive
 	use({ "tpope/vim-fugitive" })
@@ -145,6 +150,9 @@ return require("packer").startup(function(use)
 		config = function()
 			require("gitsigns").setup({
 				current_line_blame = true,
+				current_line_blame_opts = {
+					delay = 150,
+				},
 			})
 		end,
 	})

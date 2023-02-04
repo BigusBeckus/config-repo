@@ -21,14 +21,12 @@ vim.keymap.set("v", "<leader>d", '"_d"')
 -- Formatter
 vim.keymap.set("n", "<leader>f", function()
 	vim.lsp.buf.format({
-		options = {
-			formatting_options = {
-				-- trimTrailingWhitespace = true,
-				-- trimFinalNewLines = true,
-				insertFinalNewLine = true,
-			},
+		formatting_options = {
+			-- trimTrailingWhitespace = true,
+			-- trimFinalNewLines = true,
+			insertFinalNewline = true,
 		},
-		async = true,
+		-- async = true,
 	})
 end)
 

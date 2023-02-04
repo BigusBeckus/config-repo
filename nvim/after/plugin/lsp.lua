@@ -135,6 +135,10 @@ lsp.configure("jsonls", {
 					},
 					url = "http://json.schemastore.org/stylelintrc.json",
 				},
+				{
+					fileMatch = { "turbo.json" },
+					url = "https://turbo.build/schema.json",
+				},
 			},
 		},
 	},
@@ -173,6 +177,10 @@ lsp.configure("sumneko_lua", {
 lsp.configure("tailwindcss", {
 	root_dir = root_pattern("tailwind.config.*"),
 })
+
+if vim.fn.executable("dart") == 1 then
+	lsp.configure("dartls")
+end
 
 -- nvim-cmp configuration
 local cmp = require("cmp")
