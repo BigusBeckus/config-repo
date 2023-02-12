@@ -18,6 +18,9 @@ vim.opt.smartcase = true
 vim.opt.wrap = false
 vim.opt.fixeol = true
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 -- Permanently enable gutters to avoid shifting with lsp-zero icons that I haven't figured out how to disable yet
 vim.opt.signcolumn = "yes"
 

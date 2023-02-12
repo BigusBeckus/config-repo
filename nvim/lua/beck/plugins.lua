@@ -27,7 +27,7 @@ return require("packer").startup(function(use)
 		},
 	})
 
-	-- Gruvbox theme
+	-- Gruvbox neovim theme
 	use({ "ellisonleao/gruvbox.nvim" })
 	require("gruvbox").setup({
 		transparent_mode = true,
@@ -90,7 +90,9 @@ return require("packer").startup(function(use)
 	--  }
 
 	-- nvim-dap (Debug Adapter Protocol) and mason-nvim-dap
+	use("folke/neodev.nvim")
 	use({ "mfussenegger/nvim-dap", "jayp0521/mason-nvim-dap.nvim" })
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
 	-- nvim-dap UI
 	-- use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
@@ -157,8 +159,28 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Comment toggle plugin
-	use("terrortylor/nvim-comment")
+	-- Comment toggle plugins
+	-- use("terrortylor/nvim-comment")
+	use("JoosepAlviste/nvim-ts-context-commentstring")
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup({
+				padding = true,
+				sticky = true,
+				ignore = nil,
+				toggler = { line = "<leader>cc", block = "<leader>cbc" },
+				opleader = { line = "<leader>c", block = "<leader>cb" },
+				extra = { above = "<leader>cO", below = "<leader>co", eol = "<leader>cA" },
+				mappings = { basic = true, extra = true },
+				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+				post_hook = nil,
+			})
+		end,
+	})
+
+	-- Refactoring
+	use("ThePrimeagen/refactoring.nvim")
 
 	-- Markdown preview
 	use({
@@ -178,6 +200,9 @@ return require("packer").startup(function(use)
 
 	-- Cellular automaton (this just looks fun as hell)
 	use("eandrju/cellular-automaton.nvim")
+
+	-- Vim surround
+	use("tpope/vim-surround")
 
 	-- Autopairs
 	use({

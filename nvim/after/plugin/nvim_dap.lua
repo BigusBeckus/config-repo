@@ -1,7 +1,10 @@
--- Ensure debug adapters are installed
-require("mason-nvim-dap").setup({
+local mason_nvim_dap = require("mason-nvim-dap")
+
+-- Ensure debug adapters are installed and auto setup nvim-dap
+mason_nvim_dap.setup({
 	ensure_installed = {
 		"bash",
+    "codelldb",
 		"chrome",
 		"dart",
 		"firefox",
@@ -10,9 +13,15 @@ require("mason-nvim-dap").setup({
 	},
 	automatic_setup = true,
 })
+mason_nvim_dap.setup_handlers()
+
+-- Setup DAP UI
+local dap_ui = require("dapui")
+dap_ui.setup()
+
+local dap = require("dap")
 
 -- Configure DAP keymaps
-local dap = require("dap")
 vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint)
 
 vim.keymap.set("n", "<leader>B", function()
@@ -36,3 +45,5 @@ vim.keymap.set("n", "<F5>", dap.continue)
 vim.keymap.set("n", "<F10>", dap.step_over)
 vim.keymap.set("n", "<F11>", dap.step_into)
 vim.keymap.set("n", "<F12>", dap.step_out)
+
+vim.keymap.set("n", "<leader>dui", dap_ui.toggle)

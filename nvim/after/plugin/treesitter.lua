@@ -1,4 +1,8 @@
 require("nvim-treesitter.configs").setup({
+	auto_install = true,
+	context_commentstring = {
+		enable = true,
+	},
 	-- ensure_installed = { "astro", "bash", "c", "c_sharp", "cmake", "comment", "cpp", "css", "dart", "lua", "rust" },
 	ensure_installed = {
 		"astro",
@@ -26,7 +30,7 @@ require("nvim-treesitter.configs").setup({
 		"kotlin",
 		"lua",
 		"make",
-		"markdown",
+		"markdown_inline",
 		"ocaml",
 		"php",
 		"prisma",
@@ -46,8 +50,6 @@ require("nvim-treesitter.configs").setup({
 		"vue",
 		"yaml",
 	},
-	sync_install = false,
-	auto_install = true,
 	highlight = {
 		enable = true,
 		disable = function(_, buf)
@@ -59,4 +61,5 @@ require("nvim-treesitter.configs").setup({
 		end,
 		additional_vim_regex_highlighting = false,
 	},
+	sync_install = false,
 })

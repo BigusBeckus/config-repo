@@ -2,8 +2,6 @@
 -- local function t(str)
 --   return vim.api.nvim_replace_termcodes(str, true, true, true)
 -- end
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 -- "greatest remap ever" - ThePrimeagen
 vim.keymap.set("x", "<leader>p", '"_dP') -- Replace without replacing buffer contents
@@ -11,12 +9,12 @@ vim.keymap.set("x", "<leader>p", '"_dP') -- Replace without replacing buffer con
 -- "next greatest remap ever : asbjornHaland" - ThePrimeagen
 -- Yank to system clipboard
 vim.keymap.set("n", "<leader>y", '"+y"')
-vim.keymap.set("v", "<leader>y", '"+y"')
+vim.keymap.set("v", "<leader>y", '"+y"<Esc>')
 vim.keymap.set("n", "<leader>Y", '"+Y"')
 
 -- Delete without replacing buffer contents
 vim.keymap.set("n", "<leader>d", '"_d"')
-vim.keymap.set("v", "<leader>d", '"_d"')
+vim.keymap.set("v", "<leader>d", '"_d"<Esc>')
 
 -- Formatter
 vim.keymap.set("n", "<leader>f", function()
