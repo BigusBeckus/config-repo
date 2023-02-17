@@ -15,7 +15,6 @@ lsp.set_preferences({
 	cmp_capabilities = true,
 	manage_nvim_cmp = true,
 	call_servers = "local",
-
 	-- Alternative sign icons A
 	-- 	sign_icons = {
 	-- 		error = "x",
@@ -26,12 +25,12 @@ lsp.set_preferences({
 	-- })
 
 	-- Alternative sign icons B
-	-- sign_icons = {
-	-- 	error = "E",
-	-- 	warn = "W",
-	-- 	hint = "H",
-	-- 	info = "I",
-	-- },
+	sign_icons = {
+		error = "E",
+		warn = "W",
+		hint = "H",
+		info = "I",
+	},
 })
 
 lsp.nvim_workspace({
@@ -52,7 +51,7 @@ lsp.ensure_installed({
 	"kotlin_language_server",
 	"prismals",
 	"rust_analyzer",
-	"sumneko_lua",
+	"lua_ls",
 	"sqls",
 	"svelte",
 	"tailwindcss",
@@ -91,21 +90,25 @@ lsp.configure("jsonls", {
 	filetypes = { "sqq", "json", "jsonc" },
 	settings = {
 		json = {
-			-- Schemas https://www.schemastore.org
+			-- Manually configure JSON schemas https://www.schemastore.org
 			schemas = {
 				{
+					description = "Node package.json",
 					fileMatch = { "package.json" },
 					url = "https://json.schemastore.org/package.json",
 				},
 				{
+					description = "Typescript compiler config",
 					fileMatch = { "tsconfig.json", "tsconfig.*.json" },
 					url = "https://json.schemastore.org/tsconfig.json",
 				},
 				{
+					description = "Javascript config",
 					fileMatch = { "jsconfig.json", "jsconfig.*.json" },
 					url = "https://json.schemastore.org/jsconfig.json",
 				},
 				{
+					description = "Prettier config",
 					fileMatch = {
 						".prettierrc",
 						".prettierrc.json",
@@ -114,22 +117,27 @@ lsp.configure("jsonls", {
 					url = "https://json.schemastore.org/prettierrc.json",
 				},
 				{
+					description = "ESLint config",
 					fileMatch = { ".eslintrc", ".eslintrc.json" },
 					url = "https://json.schemastore.org/eslintrc.json",
 				},
 				{
+					description = "Babel config",
 					fileMatch = { ".babelrc", ".babelrc.json", "babel.config.json" },
 					url = "https://json.schemastore.org/babelrc.json",
 				},
 				{
+					description = "Lerna config",
 					fileMatch = { "lerna.json" },
 					url = "https://json.schemastore.org/lerna.json",
 				},
 				{
+					description = "Vercel Now config",
 					fileMatch = { "now.json", "vercel.json" },
 					url = "https://json.schemastore.org/now.json",
 				},
 				{
+					description = "Stylelint config",
 					fileMatch = {
 						".stylelintrc",
 						".stylelintrc.json",
@@ -138,13 +146,29 @@ lsp.configure("jsonls", {
 					url = "http://json.schemastore.org/stylelintrc.json",
 				},
 				{
+					description = "Turborepo config",
 					fileMatch = { "turbo.json" },
 					url = "https://turbo.build/schema.json",
+				},
+				{
+					description = "Deno config",
+					fileMatch = { "deno.json", "deno.jsonc" },
+					url = "https://raw.githubusercontent.com/denoland/deno/main/cli/schemas/config-file.v1.json",
 				},
 			},
 		},
 	},
 })
+
+-- Recognize json files known to actually be JSONC
+vim.cmd([[
+  augroup jsoncdetect
+    autocmd!
+    autocmd BufNewFile,BufRead .eslintrc.json setlocal filetype=jsonc
+    autocmd BufNewFile,BufRead jsconfig.json setlocal filetype=jsonc
+    autocmd BufNewFile,BufRead tsconfig.json setlocal filetype=jsonc
+  augroup end
+]])
 
 -- Set deno-ls root pattern to fix conflicts with tsserver
 lsp.configure("denols", {
@@ -152,7 +176,7 @@ lsp.configure("denols", {
 })
 
 -- Setup lua language server
--- lsp.configure("sumneko_lua", {
+-- lsp.configure("lua_ls", {
 -- 	settings = {
 -- 		Lua = {
 -- 			runtime = {
@@ -199,6 +223,13 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 lsp.setup_nvim_cmp({
 	mappings = cmp_mappings,
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "buffer" },
+		-- more sources
+		{ name = "nvim-lua" },
+	}),
 })
 
 -- Use an on_attach function to only map the following keys
@@ -249,17 +280,38 @@ lsp.on_attach(function(client, bufnr)
 	end
 end)
 
+-- Setup fidget.nvim - An LSP progress UI
+require("fidget").setup({
+	timer = {
+		fidget_decay = 700,
+		task_decay = 300,
+	},
+	window = {
+		blend = 0,
+	},
+})
+
 -- Setup lsp-zero
 lsp.setup()
 
 -- Diagnostics
 vim.diagnostic.config({
 	virtual_text = true,
+	-- virtual_text = {
+	-- 	source = "always",
+	-- },
 	signs = true,
 	update_in_insert = false,
 	underline = true,
 	severity_sort = true,
-	float = true,
+	float = {
+		focusable = false,
+		style = "minimal",
+		border = "rounded",
+		source = "always",
+		header = "",
+		prefix = "",
+	},
 })
 
 -- lsp-zero default

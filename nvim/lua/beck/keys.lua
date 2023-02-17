@@ -22,8 +22,10 @@ vim.keymap.set("n", "<leader>f", function()
 		formatting_options = {
 			-- trimTrailingWhitespace = true,
 			-- trimFinalNewLines = true,
-			insertFinalNewline = true,
+			-- insertFinalNewline = true,
+			insert_final_newline = true,
 		},
+		timeout_ms = 2500,
 		-- async = true,
 	})
 end)
@@ -31,3 +33,7 @@ end)
 -- Unbound netrw rebind because vim-vinegar is better
 -- Netrw rebind
 -- vim.keymap.set("n", "<leader>pe", vim.cmd.Ex)
+
+vim.cmd("cabb help vert help")
+vim.cmd("cabb h vert h")
+

@@ -33,7 +33,7 @@ lsp.ensure_installed({
 	"html",
   "prettierd",
 	"rust_analyzer",
-	"sumneko_lua",
+	"lua_ls",
 	"svelte",
 	"vimls",
 	"volar",

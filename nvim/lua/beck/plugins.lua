@@ -8,22 +8,25 @@ return require("packer").startup(function(use)
 		"VonHeikemen/lsp-zero.nvim",
 		requires = {
 			-- LSP Support
-			{ "neovim/nvim-lspconfig" },
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
+			"neovim/nvim-lspconfig", -- Required
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+
+			-- Useful LSP status updates
+			"j-hui/fidget.nvim",
 
 			-- Autocompletion
-			{ "hrsh7th/nvim-cmp" },
-			{ "hrsh7th/cmp-buffer" },
-			{ "hrsh7th/cmp-path" },
-			-- { "saadparwaiz1/cmp_luasnip" },
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "hrsh7th/cmp-nvim-lua" },
-			{ "hrsh7th/cmp-cmdline" },
+			"hrsh7th/nvim-cmp", -- Required
+			"hrsh7th/cmp-nvim-lsp", -- Required
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			-- "saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-nvim-lua",
+			"hrsh7th/cmp-cmdline",
 
 			-- Snippets
-			{ "L3MON4D3/LuaSnip" },
-			{ "rafamadriz/friendly-snippets" },
+			"L3MON4D3/LuaSnip", -- Required
+			-- "rafamadriz/friendly-snippets",
 		},
 	})
 
@@ -70,6 +73,8 @@ return require("packer").startup(function(use)
 	})
 	require("lualine").setup({
 		options = {
+			component_separators = "|",
+			section_separators = "",
 			icons_enabled = true,
 			theme = "auto",
 			-- theme = "poimandres",
@@ -117,11 +122,13 @@ return require("packer").startup(function(use)
 			ts_update()
 		end,
 	})
+	-- Additional text objects via treesitter (this is actually kinda insane)
+	use({ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" })
 
 	-- Telescope (Fuzzy finder)
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.0",
+		-- tag = "0.1.0",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	use({
@@ -132,11 +139,19 @@ return require("packer").startup(function(use)
 				defaults = {
 					file_ignore_patterns = {
 						"node%_modules/.*",
-						".git/.*",
+						"%.git/.*",
 						"^dist/.*",
 						"^.next/.*",
 						"^.nuxt/.*",
 					},
+					mappings = {
+						i = {
+							["<Esc>"] = require("telescope.actions").close,
+						},
+					},
+				},
+				pickers = {
+					layout_strategy = "vertical",
 				},
 			})
 			require("telescope").load_extension("fzf")
@@ -161,7 +176,7 @@ return require("packer").startup(function(use)
 
 	-- Comment toggle plugins
 	-- use("terrortylor/nvim-comment")
-	use("JoosepAlviste/nvim-ts-context-commentstring")
+	use("JoosepAlviste/nvim-ts-context-commentstring") -- Changes commentstring to use based on cursor position
 	use({
 		"numToStr/Comment.nvim",
 		config = function()
